@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "aachartkit-swift?ysclid=lgnjf447o9915329759",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AAChartModel/AAChartKit-Swift?ysclid=lgnjf447o9915329759",
+      "state" : {
+        "revision" : "78bb437d4fe667457b4885105a92de34e099c0c1",
+        "version" : "7.3.0"
+      }
+    },
+    {
+      "identity" : "snapkit?ysclid=lgkxco18af529664267",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit?ysclid=lgkxco18af529664267",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "58320fe80522414bf3a7e24c88123581dc586752"
+      }
+    },
+    {
+      "identity" : "spreadsheet-view",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/database-utility/spreadsheet-view.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "1751fd10257daed330a8dc604105518573bfc1eb"
+      }
+    }
+  ],
+  "version" : 2
+}
