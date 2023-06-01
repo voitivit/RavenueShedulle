@@ -88,7 +88,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	
 		if let savedNumbers = UserDefaults.standard.array(forKey: "numbers") as? [Int] {
 			array = savedNumbers
-			
+            chartView.reload()
 		}
 		view.addSubview(imageBackground)
 		view.sendSubviewToBack(imageBackground)
@@ -191,9 +191,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
 			make.right.equalTo(view.snp.right)
 			make.bottom.equalTo(stackIncome.snp.top).offset(-80)
 		}
-		let newArrat = array.reduce(0) { $0 * 10 + $1 }
-		var newArray: [Int] = []
-		newArray.append(newArrat)
+        if let numberString = income.text, let number = Int(numberString) {
+            array.append(number)
+                   print("Массив с числами: \(array)")
+               } else {
+                   print("Введите целое число")
+               }
+               
+               // Очистить текстовое поле после добавления числа в массив
+        income.text = ""
+//		let newArrat = array.reduce(0) { $0 * 10 + $1 }
+//		var newArray: [Int] = []
+//		newArray.append(newArrat)
 		
 		let seriesElement = AASeriesElement()
 		
@@ -224,63 +233,86 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	   }
 
 	}
-
+extension ViewController {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            // Сохраняем введенные цифры в UserDefaults
+            UserDefaults.standard.set(array, forKey: "numbers")
+            return true
+            
+           
+        }
+        // Проверяем, что вводится только цифра
+        let allowedCharacterSet = CharacterSet(charactersIn: "0123456789")
+        let typedCharacterSet = CharacterSet(charactersIn: string)
+        if !allowedCharacterSet.isSuperset(of: typedCharacterSet) {
+            let alert = UIAlertController(title: "Введите число", message: "Пожалуйста, введите число", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
+}
 /*
   Очистка массива при нажатии на очистить
  numbers.removeAll()
 		UserDefaults.standard.removeObject(forKey: "numbers")
  
  */
-extension ViewController {
-	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-		// Проверяем, что вводится только цифра
-		let allowedCharacterSet = CharacterSet(charactersIn: "0123456789")
-		let typedCharacterSet = CharacterSet(charactersIn: string)
-		if !allowedCharacterSet.isSuperset(of: typedCharacterSet) {
-			let alert = UIAlertController(title: "Введите число", message: "Пожалуйста, введите число", preferredStyle: .alert)
-			let action = UIAlertAction(title: "OK", style: .cancel)
-			alert.addAction(action)
-			present(alert, animated: true, completion: nil)
-			return false
-		}
-
-		// Разделяем текст на отдельные элементы
-			let components = string.split(separator: " ")
-			for component in components {
-				if let number = Int(component) {
-					array.append(number)
-				}
-			}
-		// Старое заполнение
-		/*if let number = Int(string) {
-			
-			array.append(number)
-			print("Единые числа: \(array)")
-			
-		}*/
-		
-		
-		return true
-	}
-	
-	
-	
-	
-	
-	/*
-	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		// Сохраняем введенные цифры в UserDefaults
-		UserDefaults.standard.set(array, forKey: "numbers")
-		return true
-	}*/
-	
-	/*func textFieldShouldClear(_ textField: UITextField) -> Bool {
-		// Очищаем массив при очистке текстового поля
-		array.removeAll()
-		return true
-	}*/
-	
-}
+//extension ViewController {
+//	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//		// Проверяем, что вводится только цифра
+//		let allowedCharacterSet = CharacterSet(charactersIn: "0123456789")
+//		let typedCharacterSet = CharacterSet(charactersIn: string)
+//		if !allowedCharacterSet.isSuperset(of: typedCharacterSet) {
+//			let alert = UIAlertController(title: "Введите число", message: "Пожалуйста, введите число", preferredStyle: .alert)
+//			let action = UIAlertAction(title: "OK", style: .cancel)
+//			alert.addAction(action)
+//			present(alert, animated: true, completion: nil)
+//			return false
+//		}
+//
+//		// Разделяем текст на отдельные элементы
+////			let components = string.split(separator: " ")
+////			for component in components {
+////				if let number = Int(component) {
+////					array.append(number)
+////				}
+////			}
+//
+//
+//		// Старое заполнение
+//		/*if let number = Int(string) {
+//
+//			array.append(number)
+//			print("Единые числа: \(array)")
+//
+//		}*/
+//
+//
+//		return true
+//	}
+//
+//
+//
+//
+//
+//	/*
+//	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//		// Сохраняем введенные цифры в UserDefaults
+//		UserDefaults.standard.set(array, forKey: "numbers")
+//		return true
+//	}*/
+//
+//	/*func textFieldShouldClear(_ textField: UITextField) -> Bool {
+//		// Очищаем массив при очистке текстового поля
+//		array.removeAll()
+//		return true
+//	}*/
+//
+//}
 /*
 extension ViewController {
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
