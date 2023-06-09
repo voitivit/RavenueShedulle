@@ -1,5 +1,5 @@
 //
-//  ViewController2.swift
+//  ConsuptionReports.swift
 //  ExampleGraphic
 //
 //  Created by sot on 20.04.2023.
@@ -8,10 +8,11 @@
 import UIKit
 import AAInfographics
 
-class ViewController2: UIViewController, UITextFieldDelegate {
+class ConsuptionReports: UIViewController, UITextFieldDelegate {
 	
 	let chartView = AAChartView()
 	var arrayConsumption: [Int] = []
+    var array = UserDefaults.standard.array(forKey: "arrayConsuption") as? [Int] ?? []
 	let imageBackground:  UIImageView = {
 		let imageView = UIImageView(image: UIImage(named: "backgroundColor"))
 		imageView.contentMode = .scaleAspectFill
@@ -70,12 +71,9 @@ class ViewController2: UIViewController, UITextFieldDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		//view.addSubview(chartView)
-		//chartView.backgroundColor =  UIColor(named: "#ffc069")
 		consumption.delegate = self
 		if let savedNumbers = UserDefaults.standard.array(forKey: "arrayConsuption") as? [Int] {
 			arrayConsumption = savedNumbers
-			
 		}
 		view.addSubview(stackconsumption)
 		//view.addSubview(stackconsumption)
@@ -88,6 +86,7 @@ class ViewController2: UIViewController, UITextFieldDelegate {
 		func loadArray() {
 		if let loadedArray = UserDefaults.standard.array(forKey: "arrayConsuption") as? [Int] {
 			arrayConsumption = loadedArray
+            chartView.reload()
 			print("Новый сохраненный массив: \(arrayConsumption)")
 		}
 		}
@@ -101,23 +100,9 @@ class ViewController2: UIViewController, UITextFieldDelegate {
 		super.viewDidLayoutSubviews()
 		
 			super.viewDidLayoutSubviews()
-		//view.addSubview(chartView)
-		
 			stackconsumption.addArrangedSubview(consumption)
 			stackconsumption.addArrangedSubview(consumptionGraphs)
-			//stackconsumption.addArrangedSubview(consumption)
-			//stackconsumption.addArrangedSubview(consumptionGraphs)
-		
-		
-		
-//		chartView.snp.makeConstraints { make in
-//			//make.top.equalTo(view.snp.top)
-//			make.left.equalTo(view.snp.left)
-//			make.right.equalTo(view.snp.right)
-//			//make.bottom.equalTo(stackconsumption.snp.top)
-//			make.height.equalTo(view.snp.height).multipliedBy(0.5)
-//			make.width.equalTo(view.snp.width)
-//		}
+
 			stackconsumption.snp.makeConstraints { make in
 				make.top.equalTo(view.snp.top).offset(450)
 				make.left.equalTo(view.snp.left).offset(30)
@@ -150,15 +135,12 @@ class ViewController2: UIViewController, UITextFieldDelegate {
 	
 	}
 
-	@objc func actionConsuptionGraph() {
+	 @objc func actionConsuptionGraph() {
 		 load()
 	 }
 	 @objc func saveConsumptionAction() {
-	 
-		 let defaults = UserDefaults.standard
+		   let defaults = UserDefaults.standard
 		   defaults.set(arrayConsumption, forKey: "arrayConsuption")
-		 
-		 
 	 }
 	 @objc func cleanConsumptionAction() {
 		 
@@ -167,94 +149,71 @@ class ViewController2: UIViewController, UITextFieldDelegate {
 	 }
 	 
 	 func load() {
-		 //let chartView = AAChartView()
-			chartView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height/2)
-		 
-		   // chartView.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
-		 
-			view.addSubview(chartView)
-		 chartView.snp.makeConstraints { make in
-			 make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-			 make.left.equalTo(view.snp.left)
-			 make.right.equalTo(view.snp.right)
-			 make.bottom.equalTo(stackconsumption.snp.top).offset(-80)
-		 }
-		 
-		 
-		   // let chartView2 = AAChartView()
-		 let seriesElement = AASeriesElement()
-			 .name("Мои данные") // наименование серии данных
-			 .data(arrayConsumption)
-		 print("Сохраненный массив: \(arrayConsumption)")
-		 
-			let options1 = AAChartModel()
-				.chartType(.line)//график типа столбцы
-				.title("Доходы")//заголовок графика
-				.subtitle("2023 год")//подзаголовок графика
-				.colorsTheme(["#fe117c", "#ffc069", "#06caf4", "#7dffc0"])//цветовая палитра
-				.backgroundColor("#ffc069")
-				.legendEnabled(false)//отключить легенду
-				.xAxisLabelsEnabled(true)//включить метки на оси X
-				.yAxisLabelsEnabled(true)//включить метки на оси Y
-				.xAxisTitle("Месяц")//название оси X
-				.yAxisTitle("Расходы")//название оси Y
-				.series([seriesElement])
-				/*.series([
-					AASeriesElement()
-						.name("Продажи")
-						.data([seriesElement])
-				])*/
-		 
-			chartView.aa_drawChartWithChartModel(options1)
-		 
-		}
+         chartView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height/2)
+         view.addSubview(chartView)
+         chartView.snp.makeConstraints { make in
+             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+             make.left.equalTo(view.snp.left)
+             make.right.equalTo(view.snp.right)
+             make.bottom.equalTo(stackconsumption.snp.top).offset(-80)
+         }
+         if let numberString = consumption.text, let number = Int(numberString) {
+             arrayConsumption.append(number)
+             print("Массив с числами: \(array)")
+         } else {
+             print("Введите целое число")
+         }
+         
+         // Очистить текстовое поле после добавления числа в массив
+         consumption.text = ""
+         let seriesElement = AASeriesElement()
+             .name("Мои данные")
+             .data(arrayConsumption)
+         print("Сохраненный массив: \(arrayConsumption)")
+         
+         let options1 = AAChartModel()
+             .chartType(.line)//график типа столбцы
+             .title("Доходы")//заголовок графика
+             .subtitle("2023 год")//подзаголовок графика
+             .colorsTheme(["#fe117c", "#ffc069", "#06caf4", "#7dffc0"])//цветовая палитра
+             .backgroundColor("#ffc069")
+             .legendEnabled(false)//отключить легенду
+             .xAxisLabelsEnabled(true)//включить метки на оси X
+             .yAxisLabelsEnabled(true)//включить метки на оси Y
+             .xAxisTitle("Месяц")//название оси X
+             .yAxisTitle("Расходы")//название оси Y
+             .series([seriesElement])
+         /*.series([
+          AASeriesElement()
+          .name("Продажи")
+          .data([seriesElement])
+          ])*/
+         
+         chartView.aa_drawChartWithChartModel(options1)
+         
+     }
+    
+}
 
-	 }
-
- /*
-   Очистка массива при нажатии на очистить
-  numbers.removeAll()
-		 UserDefaults.standard.removeObject(forKey: "numbers")
-  
-  */
- extension ViewController2 {
-	 func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-		 // Проверяем, что вводится только цифра
-		 let allowedCharacterSet = CharacterSet(charactersIn: "0123456789")
-		 let typedCharacterSet = CharacterSet(charactersIn: string)
-		 if !allowedCharacterSet.isSuperset(of: typedCharacterSet) {
-			 let alert = UIAlertController(title: "Введите число", message: "Пожалуйста, введите число", preferredStyle: .alert)
-			 let action = UIAlertAction(title: "OK", style: .cancel)
-			 alert.addAction(action)
-			 present(alert, animated: true, completion: nil)
-			 return false
-		 }
-		 
-		 // Добавляем введенную цифру в массив
-		 if let number = Int(string) {
-			 arrayConsumption.append(number)
-		 }
-		 return true
-	 }
-	 
-	 
-	 
-	 
-	 
-	 /*
-	 func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		 // Сохраняем введенные цифры в UserDefaults
-		 UserDefaults.standard.set(array, forKey: "numbers")
-		 return true
-	 }*/
-	 
-	 /*func textFieldShouldClear(_ textField: UITextField) -> Bool {
-		 // Очищаем массив при очистке текстового поля
-		 array.removeAll()
-		 return true
-	 }*/
-
-	}
-
-
-
+extension ConsuptionReports {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            // Сохраняем введенные цифры в UserDefaults
+            UserDefaults.standard.set(arrayConsumption, forKey: "arrayConsuption")
+            return true
+            
+            
+        }
+        // Проверяем, что вводится только цифра
+        let allowedCharacterSet = CharacterSet(charactersIn: "0123456789")
+        let typedCharacterSet = CharacterSet(charactersIn: string)
+        if !allowedCharacterSet.isSuperset(of: typedCharacterSet) {
+            let alert = UIAlertController(title: "Введите число", message: "Пожалуйста, введите число", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
+}

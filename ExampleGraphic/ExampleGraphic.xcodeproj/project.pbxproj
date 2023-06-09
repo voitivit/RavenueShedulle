@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9F5CB82A29F1686E00331CED /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5CB82929F1686E00331CED /* ViewController2.swift */; };
+		9F5CB82A29F1686E00331CED /* ConsuptionReports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5CB82929F1686E00331CED /* ConsuptionReports.swift */; };
 		9FAD18F129EFF66000579845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD18F029EFF66000579845 /* AppDelegate.swift */; };
 		9FAD18F329EFF66000579845 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD18F229EFF66000579845 /* SceneDelegate.swift */; };
-		9FAD18F529EFF66000579845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD18F429EFF66000579845 /* ViewController.swift */; };
+		9FAD18F529EFF66000579845 /* IncomeReports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD18F429EFF66000579845 /* IncomeReports.swift */; };
 		9FAD18FA29EFF66400579845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD18F929EFF66400579845 /* Assets.xcassets */; };
 		9FAD18FD29EFF66400579845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FAD18FB29EFF66400579845 /* LaunchScreen.storyboard */; };
 		9FAD190829EFF66500579845 /* ExampleGraphicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FAD190729EFF66500579845 /* ExampleGraphicTests.swift */; };
@@ -39,11 +39,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9F5CB82929F1686E00331CED /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		9F5CB82929F1686E00331CED /* ConsuptionReports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsuptionReports.swift; sourceTree = "<group>"; };
 		9FAD18ED29EFF66000579845 /* ExampleGraphic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExampleGraphic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FAD18F029EFF66000579845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FAD18F229EFF66000579845 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9FAD18F429EFF66000579845 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9FAD18F429EFF66000579845 /* IncomeReports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeReports.swift; sourceTree = "<group>"; };
 		9FAD18F929EFF66400579845 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FAD18FC29EFF66400579845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9FAD18FE29EFF66400579845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,8 +107,8 @@
 			children = (
 				9FAD18F029EFF66000579845 /* AppDelegate.swift */,
 				9FAD18F229EFF66000579845 /* SceneDelegate.swift */,
-				9FAD18F429EFF66000579845 /* ViewController.swift */,
-				9F5CB82929F1686E00331CED /* ViewController2.swift */,
+				9FAD18F429EFF66000579845 /* IncomeReports.swift */,
+				9F5CB82929F1686E00331CED /* ConsuptionReports.swift */,
 				9FAD18F929EFF66400579845 /* Assets.xcassets */,
 				9FAD18FB29EFF66400579845 /* LaunchScreen.storyboard */,
 				9FAD18FE29EFF66400579845 /* Info.plist */,
@@ -273,8 +273,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FAD18F529EFF66000579845 /* ViewController.swift in Sources */,
-				9F5CB82A29F1686E00331CED /* ViewController2.swift in Sources */,
+				9FAD18F529EFF66000579845 /* IncomeReports.swift in Sources */,
+				9F5CB82A29F1686E00331CED /* ConsuptionReports.swift in Sources */,
 				9FAD18F129EFF66000579845 /* AppDelegate.swift in Sources */,
 				9FAD18F329EFF66000579845 /* SceneDelegate.swift in Sources */,
 			);

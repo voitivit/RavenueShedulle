@@ -16,8 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
-		let vc1 = ViewController()
-		let vc2 = ViewController2()
+		let vc1 = IncomeReports()
+		let vc2 = ConsuptionReports()
 		vc1.tabBarItem = UITabBarItem(title: "ДОХОД", image: UIImage(systemName: "dollarsign.circle"), tag: 0)
 		vc2.tabBarItem = UITabBarItem(title: "РАСХОД", image: UIImage(systemName: "cart.fill"), tag: 1)
 				// Создаем UITabBarController и связываем с ним три UIViewController
@@ -32,10 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
-		// Called as the scene is being released by the system.
-		// This occurs shortly after the scene enters the background, or when its session is discarded.
-		// Release any resources associated with this scene that can be re-created the next time the scene connects.
-		// The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+
 	}
 
 	func sceneDidBecomeActive(_ scene: UIScene) {

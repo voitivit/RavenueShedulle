@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  IncomeReports.swift
 //  ExampleGraphic
 //
 //  Created by sot on 19.04.2023.
@@ -10,7 +10,7 @@ import AAInfographics
 import SpreadsheetView
 import SnapKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class IncomeReports: UIViewController, UITextFieldDelegate {
 	let chartView = AAChartView()
 	//var array: [Int] = []
 	var array = UserDefaults.standard.array(forKey: "numbers") as? [Int] ?? []
@@ -103,9 +103,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 			print("Новый сохраненный массив: \(array)")
 		}
 		}
-		/*if let savedNumbers = UserDefaults.standard.array(forKey: "numbers") as? [Int] {
-			array = savedNumbers
-		}*/
 	}
 	
 	
@@ -113,9 +110,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		super.viewDidLayoutSubviews()
 		stackIncome.addArrangedSubview(income)
 		stackIncome.addArrangedSubview(incomeGraphs)
-		//stackconsumption.addArrangedSubview(consumption)
-		//stackconsumption.addArrangedSubview(consumptionGraphs)
-		
 		stackIncome.snp.makeConstraints { make in
 			make.top.equalTo(view.snp.top).offset(450)
 			make.left.equalTo(view.snp.left).offset(30)
@@ -131,17 +125,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
 			}
 			
 		}
-		/*stackconsumption.snp.makeConstraints { make in
-			make.top.equalTo(view.snp.top).offset(500)
-			make.left.equalTo(view.snp.left).offset(30)
-			make.right.equalTo(view.snp.right).offset(-30)
-			
-			consumptionGraphs.snp.makeConstraints { make in
-				make.width.equalTo(150)
-			}
-			
-		}*/
-		
 		save.snp.makeConstraints { make in
 			make.top.equalTo(stackIncome.snp.top).offset(100)
 			make.left.equalTo(view.snp.left).offset(100)
@@ -176,14 +159,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	}
 	
 	func load() {
-	
-
-		
-		//let chartView = AAChartView()
+        
 		   chartView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height/2)
-		
-		  // chartView.backgroundColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1.0)
-		
+
 		   view.addSubview(chartView)
 			chartView.snp.makeConstraints { make in
 			make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -233,7 +211,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	   }
 
 	}
-extension ViewController {
+extension IncomeReports {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             // Сохраняем введенные цифры в UserDefaults
@@ -255,80 +233,3 @@ extension ViewController {
         return true
     }
 }
-/*
-  Очистка массива при нажатии на очистить
- numbers.removeAll()
-		UserDefaults.standard.removeObject(forKey: "numbers")
- 
- */
-//extension ViewController {
-//	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//		// Проверяем, что вводится только цифра
-//		let allowedCharacterSet = CharacterSet(charactersIn: "0123456789")
-//		let typedCharacterSet = CharacterSet(charactersIn: string)
-//		if !allowedCharacterSet.isSuperset(of: typedCharacterSet) {
-//			let alert = UIAlertController(title: "Введите число", message: "Пожалуйста, введите число", preferredStyle: .alert)
-//			let action = UIAlertAction(title: "OK", style: .cancel)
-//			alert.addAction(action)
-//			present(alert, animated: true, completion: nil)
-//			return false
-//		}
-//
-//		// Разделяем текст на отдельные элементы
-////			let components = string.split(separator: " ")
-////			for component in components {
-////				if let number = Int(component) {
-////					array.append(number)
-////				}
-////			}
-//
-//
-//		// Старое заполнение
-//		/*if let number = Int(string) {
-//
-//			array.append(number)
-//			print("Единые числа: \(array)")
-//
-//		}*/
-//
-//
-//		return true
-//	}
-//
-//
-//
-//
-//
-//	/*
-//	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//		// Сохраняем введенные цифры в UserDefaults
-//		UserDefaults.standard.set(array, forKey: "numbers")
-//		return true
-//	}*/
-//
-//	/*func textFieldShouldClear(_ textField: UITextField) -> Bool {
-//		// Очищаем массив при очистке текстового поля
-//		array.removeAll()
-//		return true
-//	}*/
-//
-//}
-/*
-extension ViewController {
-	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-		   // Проверяем, что вводится только цифра
-		   let allowedCharacterSet = CharacterSet(charactersIn: "0123456789")
-		   let typedCharacterSet = CharacterSet(charactersIn: string)
-		   if !allowedCharacterSet.isSuperset(of: typedCharacterSet) {
-			   return false
-		   }
-		   
-		   // Добавляем введенную цифру в массив
-		   if let number = Int(string) {
-			   array.append(number)
-		   }
-		   
-		   return true
-	   }
-}
-*/
