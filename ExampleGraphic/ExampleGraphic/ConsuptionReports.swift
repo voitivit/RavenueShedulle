@@ -12,7 +12,6 @@ class ConsuptionReports: UIViewController, UITextFieldDelegate {
 	
 	let chartView = AAChartView()
 	var arrayConsumption: [Int] = []
-    var array = UserDefaults.standard.array(forKey: "arrayConsuption") as? [Int] ?? []
 	let imageBackground:  UIImageView = {
 		let imageView = UIImageView(image: UIImage(named: "backgroundColor"))
 		imageView.contentMode = .scaleAspectFill
@@ -159,7 +158,7 @@ class ConsuptionReports: UIViewController, UITextFieldDelegate {
          }
          if let numberString = consumption.text, let number = Int(numberString) {
              arrayConsumption.append(number)
-             print("Массив с числами: \(array)")
+           
          } else {
              print("Введите целое число")
          }

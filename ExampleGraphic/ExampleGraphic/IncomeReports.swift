@@ -13,7 +13,7 @@ import SnapKit
 class IncomeReports: UIViewController, UITextFieldDelegate {
 	let chartView = AAChartView()
 	//var array: [Int] = []
-	var array = UserDefaults.standard.array(forKey: "numbers") as? [Int] ?? []
+	var incomeArray = UserDefaults.standard.array(forKey: "numbers") as? [Int] ?? []
 //	lazy var spreadsheetView = SpreadsheetView()
 	let imageBackground:  UIImageView = {
 		let imageView = UIImageView(image: UIImage(named: "backgroundColor"))
@@ -87,7 +87,7 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 		income.delegate = self
 	
 		if let savedNumbers = UserDefaults.standard.array(forKey: "numbers") as? [Int] {
-			array = savedNumbers
+            incomeArray = savedNumbers
             chartView.reload()
 		}
 		view.addSubview(imageBackground)
@@ -99,8 +99,7 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 		//view.backgroundColor = .green
 		func loadArray() {
 		if let loadedArray = UserDefaults.standard.array(forKey: "numbers") as? [Int] {
-		array = loadedArray
-			print("Новый сохраненный массив: \(array)")
+            incomeArray = loadedArray
 		}
 		}
 	}
@@ -148,13 +147,13 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 	@objc func saveAction() {
 		
 		let defaults = UserDefaults.standard
-		  defaults.set(array, forKey: "numbers")
+		  defaults.set(incomeArray, forKey: "numbers")
 		chartView.aa_drawChartWithChartModel(options1)
 		
 	}
 	@objc func action3() {
 		
-				array.removeAll()
+        incomeArray.removeAll()
 			   UserDefaults.standard.removeObject(forKey: "numbers")
 	}
 	
@@ -170,8 +169,7 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 			make.bottom.equalTo(stackIncome.snp.top).offset(-80)
 		}
         if let numberString = income.text, let number = Int(numberString) {
-            array.append(number)
-                   print("Массив с числами: \(array)")
+            incomeArray.append(number)
                } else {
                    print("Введите целое число")
                }
@@ -185,8 +183,8 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 		let seriesElement = AASeriesElement()
 		
 			.name("Мои данные") // наименование серии данных
-			.data(array)
-		print("Сохраненный массив: \(array)")
+			.data(incomeArray)
+		print("Сохраненный массив: \(incomeArray)")
 		
 		options1
 			   .chartType(.line)//график типа столбцы
@@ -215,7 +213,7 @@ extension IncomeReports {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             // Сохраняем введенные цифры в UserDefaults
-            UserDefaults.standard.set(array, forKey: "numbers")
+            UserDefaults.standard.set(incomeArray, forKey: "numbers")
             return true
             
            

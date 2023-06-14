@@ -19,6 +19,7 @@
 		9FAD192229EFF6C300579845 /* AAInfographics in Frameworks */ = {isa = PBXBuildFile; productRef = 9FAD192129EFF6C300579845 /* AAInfographics */; };
 		9FB950DF29F7AF0E00C7C1B8 /* SpreadsheetView in Frameworks */ = {isa = PBXBuildFile; productRef = 9FB950DE29F7AF0E00C7C1B8 /* SpreadsheetView */; };
 		9FB950E229F7EC6000C7C1B8 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9FB950E129F7EC6000C7C1B8 /* SnapKit */; };
+		F70E578C2A39CEF600D91169 /* SummaryReports.swift in Sources */ = {isa = PBXBuildFile; fileRef = F70E578B2A39CEF600D91169 /* SummaryReports.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		9FAD190D29EFF66500579845 /* ExampleGraphicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleGraphicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FAD191129EFF66500579845 /* ExampleGraphicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleGraphicUITests.swift; sourceTree = "<group>"; };
 		9FAD191329EFF66500579845 /* ExampleGraphicUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleGraphicUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F70E578B2A39CEF600D91169 /* SummaryReports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryReports.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				9FAD18F029EFF66000579845 /* AppDelegate.swift */,
 				9FAD18F229EFF66000579845 /* SceneDelegate.swift */,
+				F70E578B2A39CEF600D91169 /* SummaryReports.swift */,
 				9FAD18F429EFF66000579845 /* IncomeReports.swift */,
 				9F5CB82929F1686E00331CED /* ConsuptionReports.swift */,
 				9FAD18F929EFF66400579845 /* Assets.xcassets */,
@@ -276,6 +279,7 @@
 				9FAD18F529EFF66000579845 /* IncomeReports.swift in Sources */,
 				9F5CB82A29F1686E00331CED /* ConsuptionReports.swift in Sources */,
 				9FAD18F129EFF66000579845 /* AppDelegate.swift in Sources */,
+				F70E578C2A39CEF600D91169 /* SummaryReports.swift in Sources */,
 				9FAD18F329EFF66000579845 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

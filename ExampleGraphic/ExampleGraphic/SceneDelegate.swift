@@ -16,13 +16,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard let windowScene = (scene as? UIWindowScene) else { return }
 		let window = UIWindow(windowScene: windowScene)
 		self.window = window
-		let vc1 = IncomeReports()
-		let vc2 = ConsuptionReports()
-		vc1.tabBarItem = UITabBarItem(title: "ДОХОД", image: UIImage(systemName: "dollarsign.circle"), tag: 0)
-		vc2.tabBarItem = UITabBarItem(title: "РАСХОД", image: UIImage(systemName: "cart.fill"), tag: 1)
+		let incomeReports = IncomeReports()
+		let consuptionReports = ConsuptionReports()
+        let summaryReports = SummaryReports()
+        
+       
+        incomeReports.tabBarItem = UITabBarItem(title: "ДОХОД", image: UIImage(systemName: "dollarsign.circle"), tag: 0)
+        consuptionReports.tabBarItem = UITabBarItem(title: "РАСХОД", image: UIImage(systemName: "cart.fill"), tag: 1)
+        summaryReports.tabBarItem = UITabBarItem(title: "ИТОГО", image: UIImage(systemName: "checkmark"), tag: 2)
 				// Создаем UITabBarController и связываем с ним три UIViewController
 				let tabBarController = UITabBarController()
-				tabBarController.viewControllers = [vc1, vc2]
+				tabBarController.viewControllers = [incomeReports, consuptionReports, summaryReports]
 	
 		
 		
