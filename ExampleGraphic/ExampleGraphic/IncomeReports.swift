@@ -14,6 +14,7 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 	let chartView = AAChartView()
 	//var array: [Int] = []
 	var incomeArray = UserDefaults.standard.array(forKey: "numbers") as? [Int] ?? []
+   var dataHandler: (([Int]) -> Void)?
 //	lazy var spreadsheetView = SpreadsheetView()
 	let imageBackground:  UIImageView = {
 		let imageView = UIImageView(image: UIImage(named: "backgroundColor"))
@@ -83,11 +84,14 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 	let options1 = AAChartModel()
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+       
 		income.delegate = self
 	
 		if let savedNumbers = UserDefaults.standard.array(forKey: "numbers") as? [Int] {
             incomeArray = savedNumbers
+            dataHandler?(incomeArray)
             chartView.reload()
 		}
 		view.addSubview(imageBackground)
@@ -141,6 +145,11 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 
 	}
 
+    @objc func hideKeyboard() {
+          // Скрываем клавиатуру для всех активных представлений на экране
+          view.endEditing(true)
+      }
+    
 	@objc func actionGraphs() {
 		load()
 	}
@@ -170,6 +179,7 @@ class IncomeReports: UIViewController, UITextFieldDelegate {
 		}
         if let numberString = income.text, let number = Int(numberString) {
             incomeArray.append(number)
+            //dataHandler?(incomeArray)
                } else {
                    print("Введите целое число")
                }

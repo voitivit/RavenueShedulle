@@ -11,7 +11,8 @@ import AAInfographics
 class ConsuptionReports: UIViewController, UITextFieldDelegate {
 	
 	let chartView = AAChartView()
-	var arrayConsumption: [Int] = []
+	//var arrayConsumption: [Int] = []
+    var consuptionReports = UserDefaults.standard.array(forKey: "consuptionNumbers") as? [Int] ?? []
 	let imageBackground:  UIImageView = {
 		let imageView = UIImageView(image: UIImage(named: "backgroundColor"))
 		imageView.contentMode = .scaleAspectFill
@@ -71,8 +72,10 @@ class ConsuptionReports: UIViewController, UITextFieldDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		consumption.delegate = self
-		if let savedNumbers = UserDefaults.standard.array(forKey: "arrayConsuption") as? [Int] {
-			arrayConsumption = savedNumbers
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
+		if let savedNumbers = UserDefaults.standard.array(forKey: "consuptionNumbers") as? [Int] {
+            consuptionReports = savedNumbers
 		}
 		view.addSubview(stackconsumption)
 		//view.addSubview(stackconsumption)
@@ -83,10 +86,9 @@ class ConsuptionReports: UIViewController, UITextFieldDelegate {
 		
 
 		func loadArray() {
-		if let loadedArray = UserDefaults.standard.array(forKey: "arrayConsuption") as? [Int] {
-			arrayConsumption = loadedArray
+		if let loadedArray = UserDefaults.standard.array(forKey: "consuptionNumbers") as? [Int] {
+            consuptionReports = loadedArray
             chartView.reload()
-			print("Новый сохраненный массив: \(arrayConsumption)")
 		}
 		}
 		/*if let savedNumbers = UserDefaults.standard.array(forKey: "numbers") as? [Int] {
@@ -134,17 +136,23 @@ class ConsuptionReports: UIViewController, UITextFieldDelegate {
 	
 	}
 
+    @objc func hideKeyboard() {
+          // Скрываем клавиатуру для всех активных представлений на экране
+          view.endEditing(true)
+      }
+    
 	 @objc func actionConsuptionGraph() {
 		 load()
 	 }
 	 @objc func saveConsumptionAction() {
 		   let defaults = UserDefaults.standard
-		   defaults.set(arrayConsumption, forKey: "arrayConsuption")
+		   defaults.set(consuptionReports, forKey: "consuptionNumbers")
+         print("Обновленный массив: \(consuptionReports)")
 	 }
 	 @objc func cleanConsumptionAction() {
 		 
-		 arrayConsumption.removeAll()
-				UserDefaults.standard.removeObject(forKey: "arrayConsuption")
+         consuptionReports.removeAll()
+				UserDefaults.standard.removeObject(forKey: "consuptionNumbers")
 	 }
 	 
 	 func load() {
@@ -157,7 +165,7 @@ class ConsuptionReports: UIViewController, UITextFieldDelegate {
              make.bottom.equalTo(stackconsumption.snp.top).offset(-80)
          }
          if let numberString = consumption.text, let number = Int(numberString) {
-             arrayConsumption.append(number)
+             consuptionReports.append(number)
            
          } else {
              print("Введите целое число")
@@ -167,8 +175,8 @@ class ConsuptionReports: UIViewController, UITextFieldDelegate {
          consumption.text = ""
          let seriesElement = AASeriesElement()
              .name("Мои данные")
-             .data(arrayConsumption)
-         print("Сохраненный массив: \(arrayConsumption)")
+             .data(consuptionReports)
+         print("Сохраненный массив: \(consuptionReports)")
          
          let options1 = AAChartModel()
              .chartType(.line)//график типа столбцы
@@ -198,7 +206,7 @@ extension ConsuptionReports {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             // Сохраняем введенные цифры в UserDefaults
-            UserDefaults.standard.set(arrayConsumption, forKey: "arrayConsuption")
+            UserDefaults.standard.set(consuptionReports, forKey: "consuptionNumbers")
             return true
             
             

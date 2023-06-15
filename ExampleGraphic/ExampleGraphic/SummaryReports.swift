@@ -12,9 +12,11 @@ import SnapKit
 
 class SummaryReports: UIViewController {
     let chartView = AAChartView()
-    let incomeReporst = IncomeReports()
-    let consuptionReports = ConsuptionReports()
-    var summaryArrayIncome: [Int] = []
+    var incomeReporst: [Int] = []
+    var consuptionReports: [Int] = []
+   var summaryArrayIncome = UserDefaults.standard.array(forKey: "numbers") as? [Int] ?? []
+   // var summaryArrayIncome: [Int] = []
+    let chartSummaryReports = AAChartModel()
     var summaryArrayConsuption: [Int] = []
     let imageBackground:  UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "backgroundColor"))
@@ -37,6 +39,10 @@ class SummaryReports: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        setupLayout()
+        
+
+      
+        
     }
     
     func setupLayout() {
@@ -59,21 +65,56 @@ class SummaryReports: UIViewController {
             make.right.equalTo(view.snp.right)
             make.bottom.equalTo(summaryReportsButton.snp.top).offset(-15)
                 
-                self.summaryArrayIncome.append(contentsOf: consuptionReports.arrayConsumption)// = self.incomeReporst.incomeArray
-                self.summaryArrayConsuption.append(contentsOf: consuptionReports.arrayConsumption) //= self.consuptionReports.arrayConsumption
-                
-                for element in summaryArrayConsuption {
-                    if let index = summaryArrayIncome.firstIndex(of: element) {
-                        summaryArrayIncome.remove(at: index)
-                        
-                        
-                        
-                    }
-                }
-                summaryArrayIncome.append(contentsOf: consuptionReports.arrayConsumption)
-                print("Массив разности поступлений и расходов: \(summaryArrayIncome) ")
-                
-        }
 
+              
+        }
+        // Получаем заполненный массив из UserDefaults или используем пустой массив, если нет значения
+        if let storedArray = UserDefaults.standard.array(forKey: "numbers") as? [Int] {
+            incomeReporst = storedArray
+        }
+        if let storedArray = UserDefaults.standard.array(forKey: "consuptionNumbers") as? [Int] {
+            consuptionReports = storedArray
+        }
+        let count = max(incomeReporst.count, consuptionReports.count)
+
+        var resultArray: [Int] = []
+
+        for index in 0..<count {
+            let incomeValue = index < incomeReporst.count ? incomeReporst[index] : 0
+            let consumptionValue = index < consuptionReports.count ? consuptionReports[index] : 0
+            let difference = incomeValue - consumptionValue
+            resultArray.append(difference)
+        }
+        print("Итоговоый массив: \(resultArray)")
+        print("Массив приходов: \(incomeReporst)")
+        print("Массив расходов: \(consuptionReports)")
+        
+        let seriesElement = AASeriesElement()
+        
+            .name("Мои данные") // наименование серии данных
+            .data(resultArray)
+        print("Сохраненный массив: \(resultArray)")
+        
+         chartSummaryReports
+               .chartType(.line)//график типа столбцы
+               .title("Доходы")//заголовок графика
+               .subtitle("2023 год")//подзаголовок графика
+               .colorsTheme(["#fe117c", "#ffc069", "#06caf4", "#7dffc0"])//цветовая палитра
+               .legendEnabled(false)//отключить легенду
+               .xAxisLabelsEnabled(true)//включить метки на оси X
+               .yAxisLabelsEnabled(true)//включить метки на оси Y
+               .backgroundColor("#ffc069")
+               .xAxisTitle("Месяц")//название оси X
+               .yAxisTitle("Поступления")//название оси Y
+               .series([seriesElement])
+               /*.series([
+                   AASeriesElement()
+                       .name("Продажи")
+                       .data([seriesElement])
+               ])*/
+        
+           chartView.aa_drawChartWithChartModel(chartSummaryReports)
+
+        
     }
 }
